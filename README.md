@@ -1,6 +1,6 @@
 App Framework Sample
 ============================
-App Framework Kitchen Sink is a simple app that shows various UI components that can be used in an app
+The App Framework Sample is a simple app that shows various UI components that can be used in an app
 
 Intel(R) XDK 
 -------------------------------------------
