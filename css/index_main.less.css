@@ -102,13 +102,13 @@ form.urow {
   /* margin: 8px 0px; */
 
 }
-/* center-h-v-col */
 .center-h-v-col > .widget {
-  position: absolute;
+  position: absolute !important;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
+  margin-top: 0 !important;
 }
 /* shim */
 .uib_shim {
@@ -130,6 +130,9 @@ form.urow {
   box-sizing: content-box;
 }
 /* page */
+.hidden {
+  display: none;
+}
 .upage-content,
 .upage-outer {
   position: relative;
@@ -140,13 +143,17 @@ body {
 }
 body:not(#afui) .uwrap,
 body:not(#afui) .upage,
-body:not(#afui) .upage-outer,
 body:not(#afui) .upage-content {
   height: 100%;
 }
+body:not(#afui) .upage-outer {
+  height: auto;
+}
 /* position relative works fine. but fixed can be elected as well */
 /* .upage-content, .upage-outer { position: fixed; height:100%; } */
-/* .upage{ overflow-x: hidden;}  */
+.upage {
+  overflow-x: hidden;
+}
 .upage-content {
   z-index: 1;
 }
@@ -155,12 +162,12 @@ body:not(#afui) .upage-content {
 }
 /* sidebars and crossbars */
 .uib_sidebar {
-  position: absolute;
+  position: fixed;
   height: 100%;
   top: 0px;
 }
 .uib_crossbar {
-  position: absolute;
+  position: fixed;
   width: 100%;
   left: 0px;
 }
@@ -200,6 +207,8 @@ body:not(#afui) .upage-content {
   z-index: 4;
 }
 .sidebar-content {
+  height: 100%;
+  overflow-y: auto;
   position: relative;
   margin: 0;
 }
@@ -207,6 +216,9 @@ body:not(#afui) .upage-content {
   position: relative;
   margin: 0;
   /* background-image:url('images/gripper.png'); */
+}
+.template {
+  display: none !important;
 }
 #afui header {
   display: -webkit-flex !important;
@@ -219,6 +231,9 @@ body:not(#afui) .upage-content {
   -ms-align-items: center;
   -o-align-items: center;
   align-items: center;
+}
+#afui header#defaultHeader {
+  display: none !important;
 }
 #afui header input {
   height: 32px;
@@ -250,6 +265,19 @@ body:not(#afui) .upage-content {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+#afui header > .content-area.left.with-back > :not(#backButton) {
+  display: none;
+}
+@media all {
+  #afui .d-margins {
+    margin-top: 5px;
+    margin-bottom: 6px;
+  }
+  #afui .wrapping-col > .d-margins {
+    margin-left: 4px;
+    margin-right: 5px;
+  }
+}
 .uib_row_1:not(.cright) > .col {
   padding-right: 20px;
 }
@@ -279,16 +307,6 @@ body:not(#afui) .upage-content {
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
-  }
-}
-@media all {
-  #afui .d-margins {
-    margin-top: 6px;
-    margin-bottom: 6px;
-  }
-  #afui .wrapping-col > .d-margins {
-    margin-left: 6px;
-    margin-right: 6px;
   }
 }
 #afui .button-grouped > .d-margins {
@@ -370,6 +388,13 @@ body:not(#afui) .upage-content {
   }
 }
 @media all {
+  #afui .bar-gutter .sidebar-content > .grid-pad {
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+@media all {
   #afui .thumb-bg > .sidebar-thumb {
     background-image: url('../sidebar/css/images/gripper.png');
   }
@@ -379,55 +404,24 @@ body:not(#afui) .upage-content {
   }
 }
 @media all {
-  #afui .bar-gutter .sidebar-content > .grid-pad {
-    padding-top: 20px;
-    padding-right: 20px;
-    padding-left: 20px;
-  }
-}
-@media all {
   #afui .bar-bg {
-    background-color: #f8f8f8;
-    background-image: ;
-    background-image: -webkit-;
+    background-color: #dadada;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: scroll;
-  }
-}
-.uib_row_3:not(.cright) > .col {
-  padding-right: 20px;
-}
-.uib_row_3.cright > .col {
-  padding-left: 20px;
-}
-@media all {
-  .col-0_12-12 {
-    width: auto;
-    float: none !important;
-  }
-  .urow:not(.cright) > .col-0_12-12 {
-    padding-right: 0px !important;
-  }
-  .urow.cright > .col-0_12-12 {
-    padding-left: 0px !important;
-  }
-}
-@media all and (min-width: 0px) {
-  #afui .row-height-3 > .col > .content-area {
-    min-height: 100px;
   }
 }
 .figure-align {
   display: table;
   margin: 0px auto;
 }
+.figure-align img {
+  width: 100%;
+}
 .image-cell {
   display: table-cell;
   vertical-align: middle;
 }
 @media all {
-  #afui .scale-image img {
-    width: 100%;
-  }
+  
 }

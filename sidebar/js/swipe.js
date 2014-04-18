@@ -22,14 +22,36 @@
 
         jQuery.event.special.swipe.settings.threshold = .1; //default is .4, but for the whole page area smaller seems better
 
-        var arg_array = [["swipeleft",  "leftbar",  "left",   "rightbar"],
-                         ["swiperight", "rightbar", "right",  "leftbar"],
-                         ["swipeup",    "topbar",   "top",    "botbar"],
-                         ["swipedown",  "botbar",   "bottom", "topbar"]];
+        var lastTarget;
+        var hasSwipeableCrossbar = !!$('.swipe.uib_crossbar').length;
+        $(".upage").on("movestart", function(e) {
+            window.getSelection().removeAllRanges();
+
+            // if the movement is vertical, and there are no
+            // swipeable crossbars present, scroll normally
+            if (!hasSwipeableCrossbar &&
+                ((e.distX > e.distY && e.distX < -e.distY) ||
+                 (e.distX < e.distY && e.distX > -e.distY)))
+            {
+                e.preventDefault();
+            } else {
+                lastTarget = e.target;
+            }
+        });
+
+        var arg_array = [["swipeleft",  "leftbar",  "left",   "rightbar", "x"],
+                         ["swiperight", "rightbar", "right",  "leftbar", "x"],
+                         ["swipeup",    "topbar",   "top",    "botbar", "y"],
+                         ["swipedown",  "botbar",   "bottom", "topbar", "y"]];
         arg_array.map(function(args)
         {
-            $(".upage-content").bind(args[0], function(evt)
+            $(".upage").bind(args[0], function(evt)
             {
+                var $widgetTarget = $(lastTarget).closest('.widget');
+                if ($widgetTarget.hasClass('no_swipe') || $widgetTarget.hasClass('no_swipe-' + args[4])) {
+                    return;
+                }
+
                 //if there is an open sidebar/crossbar, close it.
                 var open_query = $(".swipe."+args[1]).not(".reveal").filter(function(){ return parseInt($(this).css(args[2])) == 0; });
                 if(open_query.length > 0){ uib_sb.close_sidebar(open_query); }
@@ -42,10 +64,6 @@
                 window.getSelection().removeAllRanges();
             });
         });
-        $(".upage-content").bind("movestart", function(evt){ window.getSelection().removeAllRanges();});
-
-
-
 
         $(".swipe").bind("move", function(evt)
         {
